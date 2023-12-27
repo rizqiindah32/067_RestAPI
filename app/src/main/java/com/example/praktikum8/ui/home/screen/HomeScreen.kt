@@ -1,4 +1,4 @@
-package com.example.praktikum8.ui.halaman
+package com.example.praktikum8.ui.home.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,7 +39,6 @@ import com.example.praktikum8.R
 import com.example.praktikum8.model.Kontak
 import com.example.praktikum8.navigation.DestinasiNavigasi
 import com.example.praktikum8.ui.PenyediaViewModel
-import com.example.praktikum8.ui.TopAppBar
 import com.example.praktikum8.ui.TopAppBarKontak
 import com.example.praktikum8.ui.home.viewmodel.HomeViewModel
 import com.example.praktikum8.ui.home.viewmodel.KontakUIState

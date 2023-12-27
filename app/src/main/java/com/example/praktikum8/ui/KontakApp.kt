@@ -20,7 +20,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praktikum8.R
-import com.example.praktikum8.ui.halaman.HomeScreen
+import com.example.praktikum8.ui.home.screen.HomeScreen
 import com.example.praktikum8.ui.home.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
