@@ -15,9 +15,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.praktikum8.ui.PenyediaViewModel
 import com.example.praktikum8.ui.kontak.viewmodel.InsertUiEvent
 import com.example.praktikum8.ui.kontak.viewmodel.InsertUiState
+import com.example.praktikum8.ui.kontak.viewmodel.InsertViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryKontakScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    
+}
 @Composable
 fun EntryKontakBody(
     insertUiState: InsertUiState,
