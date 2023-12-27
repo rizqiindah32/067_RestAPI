@@ -38,12 +38,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praktikum8.R
 import com.example.praktikum8.model.Kontak
+import com.example.praktikum8.navigation.DestinasiNavigasi
 import com.example.praktikum8.ui.PenyediaViewModel
 import com.example.praktikum8.ui.TopAppBar
 import com.example.praktikum8.ui.TopAppBarKontak
 import com.example.praktikum8.ui.home.viewmodel.HomeViewModel
 import com.example.praktikum8.ui.home.viewmodel.KontakUIState
 
+object DestinasiHome : DestinasiNavigasi{
+    override val route = "home"
+    override val titleRes = "Kontak"
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
