@@ -14,23 +14,42 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praktikum8.R
 import com.example.praktikum8.model.Kontak
+import com.example.praktikum8.ui.PenyediaViewModel
+import com.example.praktikum8.ui.TopAppBar
+import com.example.praktikum8.ui.home.viewmodel.HomeViewModel
 import com.example.praktikum8.ui.home.viewmodel.KontakUIState
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    navigateToItemEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Int) -> Unit = {},
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+}
 @Composable
 fun HomeStatus(
     kontakUIState: KontakUIState,
@@ -42,9 +61,9 @@ fun HomeStatus(
     when (kontakUIState){
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is KontakUIState.Success -> KontakLayout(
-            kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth()
-        )
+            kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth(),
 
+        )
         is KontakUIState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
 }
@@ -66,7 +85,8 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Image(
-            painter = painterResource(id = R.drawable.ic_connection_error) , contentDescription =""
+            painter = painterResource(id = R.drawable.ic_connection_error) ,
+            contentDescription =""
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
         Button(onClick = retryAction) {
@@ -75,16 +95,27 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
     }
 }
 @Composable
-fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier){
+fun KontakLayout(
+    kontak: List<Kontak>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
+){
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ){
         items(kontak) { kontak ->
-            Kontakcard(kontak = kontak, modifier = Modifier
+            Kontakcard(
+                kontak = kontak,
+                modifier = Modifier
                 .fillMaxWidth()
-                .clickable { })
+                .clickable {onDetailClick(kontak)},
+                onDeleteClick = {
+                    onDeleteClick(kontak)
+                }
+            )
         }
     }
 }
@@ -111,22 +142,18 @@ fun Kontakcard(
                     text = kontak.nama,
                     style = MaterialTheme.typography.titleLarge,
                 )
-                Text(
-                    text = kontak.email,
-                    style = MaterialTheme.typography.titleMedium
-                )
                 Spacer(Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Default.Phone,
-                    contentDescription = null,
-                )
+                IconButton(onClick = {onDeleteClick(kontak)}) {
+                    Icon(imageVector = Icons.Default.Delete,
+                        contentDescription = null)
+                }
                 Text(
                     text = kontak.telpon,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
             Text(
-                text = kontak.almat,
+                text = kontak.alamat,
                 style = MaterialTheme.typography.titleMedium
             )
         }

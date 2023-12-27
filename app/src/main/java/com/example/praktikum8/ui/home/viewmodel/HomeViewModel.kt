@@ -1,6 +1,5 @@
 package com.example.praktikum8.ui.home.viewmodel
 
-import android.net.http.HttpException
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.praktikum8.model.Kontak
 import com.example.praktikum8.repository.KontakRepository
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
 sealed class KontakUIState{
@@ -38,7 +38,7 @@ class HomeViewModel(private val kontakRepository: KontakRepository) : ViewModel(
     }
 
     fun deleteKontak(id: Int){
-        viewModelScope.Launch{
+        viewModelScope.launch{
             try {
                 kontakRepository.deleteKontak(id)
             } catch (e: IOException){
