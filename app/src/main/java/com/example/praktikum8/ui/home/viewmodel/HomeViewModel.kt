@@ -1,5 +1,6 @@
 package com.example.praktikum8.ui.home.viewmodel
 
+import android.net.http.HttpException
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -31,6 +32,18 @@ class HomeViewModel(private val kontakRepository: KontakRepository) : ViewModel(
             } catch (e: IOException){
                 KontakUIState.Error
             } catch (e: IOException){
+                KontakUIState.Error
+            }
+        }
+    }
+
+    fun deleteKontak(id: Int){
+        viewModelScope.Launch{
+            try {
+                kontakRepository.deleteKontak(id)
+            } catch (e: IOException){
+                KontakUIState.Error
+            } catch (e: HttpException){
                 KontakUIState.Error
             }
         }

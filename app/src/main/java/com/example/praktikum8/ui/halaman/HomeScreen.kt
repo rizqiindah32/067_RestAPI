@@ -32,8 +32,12 @@ import com.example.praktikum8.model.Kontak
 import com.example.praktikum8.ui.home.viewmodel.KontakUIState
 
 @Composable
-fun HomeScreen(
-    kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier
+fun HomeStatus(
+    kontakUIState: KontakUIState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Kontak) -> Unit = {},
+    onDetailClick: (Int) -> Unit
 ){
     when (kontakUIState){
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
@@ -87,6 +91,7 @@ fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier){
 @Composable
 fun Kontakcard(
     kontak: Kontak,
+    onDeleteClick: (Kontak) -> Unit = {},
     modifier: Modifier = Modifier
 ){
     Card(
@@ -100,10 +105,15 @@ fun Kontakcard(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = kontak.nama,
                     style = MaterialTheme.typography.titleLarge,
+                )
+                Text(
+                    text = kontak.email,
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.weight(1f))
                 Icon(
