@@ -62,7 +62,12 @@ fun HomeStatus(
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is KontakUIState.Success -> KontakLayout(
             kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth(),
-
+            onDetailClick = {
+                onDetailClick(it.id)
+            },
+            onDeleteClick = {
+                onDeleteClick(it)
+            }
         )
         is KontakUIState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
@@ -90,8 +95,7 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
         Button(onClick = retryAction) {
-            Text(stringResource(R.string.retry))
-        }
+            Text(stringResource(R.string.retry))        }
     }
 }
 @Composable
